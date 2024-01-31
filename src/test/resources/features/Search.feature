@@ -1,4 +1,4 @@
-Feature: Search functionality on different search engines
+Feature: Search on different search engines
 
   @test
   Scenario Outline: Search on browser
