@@ -9,14 +9,17 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {"src/test/resources/features"},
-        plugin = {
-                "report.adapter.ExtentCucumberAdapter:"},
+        plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         glue = {"stepdefinations"},dryRun = false, tags = "@test")
+
 
 public class RunTest {
     @BeforeClass
     public static void before(){
+        if(System.getProperty("browser")==null)
         DriverFactory.invokeDriver("Chrome");
+        else
+            DriverFactory.invokeDriver(System.getProperty("browser"));
     }
 
     @AfterClass
