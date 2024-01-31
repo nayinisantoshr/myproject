@@ -12,7 +12,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertEquals;
 
 public class Search {
-    //SearchPage searchPage = new SearchPage(DriverFactory.getCurrentDriver());
     private final WebDriver driver = new ChromeDriver();
     private final SearchPage searchPage = new SearchPage(driver);
     private String actualResult;
