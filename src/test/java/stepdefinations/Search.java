@@ -6,14 +6,13 @@ import io.cucumber.java.en.When;
 import org.example.BaseActions;
 import org.example.DriverFactory;
 import org.example.pageactions.SearchPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 
 import static org.junit.Assert.assertEquals;
 
 public class Search {
-    private final WebDriver driver = new ChromeDriver();
-    private final SearchPage searchPage = new SearchPage(driver);
+
+    private final SearchPage searchPage = new SearchPage(DriverFactory.getCurrentDriver());
     private String actualResult;
 
     @Given("I am on the {string} search engine")
@@ -24,11 +23,12 @@ public class Search {
     @When("I search for {string}")
     public void iSearchFor(String searchTerm) {
         searchPage.performSearch(searchTerm);
-        actualResult = searchPage.getFirstResultText();
+
     }
 
     @Then("the first result should be {string}")
     public void theFirstResultShouldBe(String expectedResult) {
+        actualResult = searchPage.getFirstResultText();
         assertEquals(expectedResult, actualResult);
         DriverFactory.getCurrentDriver().quit();
     }

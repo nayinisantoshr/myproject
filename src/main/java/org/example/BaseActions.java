@@ -18,6 +18,11 @@ public class BaseActions {
         waitForElement(element);
         element.sendKeys(value);
     }
+
+    public static void sendKeys(WebElement element,CharSequence ...value){
+        waitForElement(element);
+        element.sendKeys(value);
+    }
     public static void click(WebElement element){
         waitForElement(element);
         element.click();
