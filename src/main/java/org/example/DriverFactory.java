@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class DriverFactory {
     static WebDriver driver=null;
-    public void invokeDriver(String browserName){
+    public static void invokeDriver(String browserName){
         if (driver==null) {
             switch (browserName) {
                 case "Chrome":

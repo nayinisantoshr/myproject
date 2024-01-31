@@ -6,11 +6,15 @@ import io.cucumber.java.en.When;
 import org.example.BaseActions;
 import org.example.DriverFactory;
 import org.example.pageactions.SearchPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
 
 public class Search {
-    SearchPage searchPage = new SearchPage(DriverFactory.getCurrentDriver());
+    //SearchPage searchPage = new SearchPage(DriverFactory.getCurrentDriver());
+    private final WebDriver driver = new ChromeDriver();
+    private final SearchPage searchPage = new SearchPage(driver);
     private String actualResult;
 
     @Given("I am on the {string} search engine")

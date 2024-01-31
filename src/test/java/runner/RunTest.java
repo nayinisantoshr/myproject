@@ -11,12 +11,12 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features = {"src/test/resources/features"},
         plugin = {
                 "report.adapter.ExtentCucumberAdapter:"},
-        glue = {"steps"},dryRun = false, tags = "@test")
+        glue = {"stepdefinations"},dryRun = false, tags = "@test")
 
 public class RunTest {
     @BeforeClass
     public static void before(){
-        DriverFactory.getCurrentDriver();
+        DriverFactory.invokeDriver("Chrome");
     }
 
     @AfterClass
