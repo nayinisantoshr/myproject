@@ -23,6 +23,8 @@ public class DriverFactory {
     }
 
     public static WebDriver getCurrentDriver(){
+        if(driver ==null)
+            invokeDriver(TestDataProperties.getData("browser"));
         return driver;
     }
 }

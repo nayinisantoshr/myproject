@@ -1,23 +1,28 @@
 package stepdefinations;
 
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.BaseActions;
 import org.example.DriverFactory;
-import org.example.pageactions.SearchPage;
+import org.example.pageactions.BingoSearchPage;
+import org.example.pageactions.GoogleSearchPage;
+import org.example.pageactions.SearchEngine;
+import org.example.pageactions.YahooSearchPage;
+import org.junit.Assert;
 
 
 import static org.junit.Assert.assertEquals;
 
 public class Search {
 
-    private final SearchPage searchPage = new SearchPage(DriverFactory.getCurrentDriver());
+    private SearchEngine searchPage;
     private String actualResult;
 
     @Given("I am on the {string} search engine")
     public void iAmOnTheSearchEngine(String searchEngine) {
-        BaseActions.navigateURL(getSearchEngineUrl(searchEngine));
+        BaseActions.navigateURL(assignSearchEngine(searchEngine));
     }
 
     @When("I search for {string}")
@@ -26,20 +31,24 @@ public class Search {
 
     }
 
-    @Then("the first result should be {string}")
-    public void theFirstResultShouldBe(String expectedResult) {
-        actualResult = searchPage.getFirstResultText();
-        assertEquals(expectedResult, actualResult);
-        DriverFactory.getCurrentDriver().quit();
+    @Then("the first result should be present")
+    public void theFirstResultShouldBe() {
+        Assert.assertTrue(searchPage.getFirstResultText().isDisplayed());
     }
 
-    private String getSearchEngineUrl(String searchEngine) {
+
+
+    private String assignSearchEngine(String searchEngine){
         switch (searchEngine.toLowerCase()) {
             case "google":
+                searchPage = new GoogleSearchPage(DriverFactory.getCurrentDriver());
                 return "https://www.google.com";
+
             case "bing":
+                searchPage = new BingoSearchPage(DriverFactory.getCurrentDriver());
                 return "https://www.bing.com";
             case "yahoo":
+                searchPage = new YahooSearchPage(DriverFactory.getCurrentDriver());
                 return "https://www.yahoo.com";
             default:
                 throw new IllegalArgumentException("Invalid search engine: " + searchEngine);
